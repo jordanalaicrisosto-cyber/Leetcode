@@ -8,20 +8,20 @@ class Solution:
         if list2 == None :
             return list1
 
-        len1 = 0
-        len2 = 0
+        len1 = 1
+        len2 = 1
         pList1 = list1
         pList2 = list2
 
 
         while pList1.next != None :
             len1 += 1
-            assert 0 <= pList1.val <= 50
+            assert -100 <= pList1.val <= 100
             assert pList1.val <= pList1.next.val
             pList1 = pList1.next
         while pList2.next != None :
             len2 += 1
-            assert 0 <= pList2.val <= 50
+            assert -100 <= pList2.val <= 100
             assert pList2.val <= pList2.next.val
             pList2 = pList2.next
         assert len1 <= 50 and len2 <= 50
@@ -29,30 +29,35 @@ class Solution:
         pList1 = list1
         pList2 = list2
         merge = ListNode(min(pList1.val, pList2.val))
-        if merge.val == pList1.val :
+        pMerge = merge
+        if pMerge.val == pList1.val :
             pList1 = pList1.next
         else :
             pList2 = pList2.next
 
-        while pList1.next != None and pList2.next != None :
-            merge.next = ListNode(min(pList1.val, pList2.val))
-            if merge.val == pList1.val :
+        while pList1 != None and pList2 != None :
+            pMerge.next = ListNode(min(pList1.val, pList2.val))
+            pMerge = pMerge.next
+            if pMerge.val == pList1.val :
                 pList1 = pList1.next
             else :
                 pList2 = pList2.next
 
         if pList1 != None :
-            while pList1.next != None :
-                merge.next = pList1
+            while pList1 != None :
+                pMerge.next = pList1
+                pMerge = pMerge.next
                 pList1 = pList1.next
-        else :
+        elif pList2 != None :
             while pList2 != None :
-                merge.next = pList2
+                pMerge.next = pList2
+                pMerge = pMerge.next
                 pList2 = pList2.next
-
+        """
         pMerge = merge
-        while pMerge.next != None :
+        while pMerge != None :
             print(pMerge.val)
             pMerge = pMerge.next
-
+        print("\n")
+        """
         return merge
